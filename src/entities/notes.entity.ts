@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Category } from "./category.entity";
 
 @Entity()
@@ -12,6 +12,6 @@ export class Note{
     @Column({type: 'varchar'})
     description: string
 
-    @OneToMany(()=> Category, (category)=> category.note)
-    category: Category[]
+    @ManyToOne(()=> Category, (category)=> category.note)
+    category: Category
 }

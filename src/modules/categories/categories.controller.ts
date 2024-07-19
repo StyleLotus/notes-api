@@ -21,7 +21,7 @@ export class CategoryController {
         this.categoriesService.createNewCategory(categoryData)
     }
 
-    @Put()
+    @Put(':id')
     modifyCategory(@Param('id', ParseUUIDPipe) id: string, @Body() categoryData: CategoryDto) {
         this.categoriesService.modifyCategory(id, categoryData)
     }
