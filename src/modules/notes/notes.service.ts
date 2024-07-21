@@ -14,7 +14,7 @@ export class NotesServices {
 
     async getAllNotes() {
         try {
-            return await this.noteRepository.find()
+            return await this.noteRepository.find({relations: {category: true}})
         } catch (err) {
             console.error(`Could get all the notes`, err)
         }
@@ -22,7 +22,7 @@ export class NotesServices {
 
     async getNoteById(id: string) {
         try {
-            const note = await this.noteRepository.findOneBy({ id })
+            const note = await this.noteRepository.findOne({where: {id}, relations: {category: true} })
 
             if (!note) throw new NotFoundException(`Could not find note by id ${id}`)
 
@@ -52,7 +52,13 @@ export class NotesServices {
             })
 
             await this.noteRepository.save(newNote)
+            
+            return newNote
         } catch (err) {
+            if(err instanceof NotFoundException){
+                throw err
+            }
+
             console.error(`Could not create note with title ${title}`, err)
             throw new InternalServerErrorException(`Could not create note with title ${title}`)
         }
@@ -84,6 +90,9 @@ export class NotesServices {
                 message: `Note with title ${title ?? note.title} was updated`
             }
         } catch (err) {
+            if(err instanceof NotFoundException){
+                throw err
+            }
             console.error(`Could not find note with id ${id} `, err)
             throw new InternalServerErrorException(`Could not find note with id ${id} `)
         }

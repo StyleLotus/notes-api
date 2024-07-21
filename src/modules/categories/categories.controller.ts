@@ -8,26 +8,27 @@ export class CategoryController {
 
     @Get()
     getAllCategories() {
-        this.categoriesService.getAllCategories()
+        return this.categoriesService.getAllCategories()
     }
 
     @Get(':id')
     getCategoryById(@Param('id', ParseUUIDPipe) id: string) {
-        this.categoriesService.getCategoryById(id)
+        return this.categoriesService.getCategoryById(id)
     }
 
     @Post()
     createNewCategory(@Body() categoryData: CategoryDto) {
-        this.categoriesService.createNewCategory(categoryData)
+        return this.categoriesService.createNewCategory(categoryData)
     }
 
     @Put(':id')
     modifyCategory(@Param('id', ParseUUIDPipe) id: string, @Body() categoryData: CategoryDto) {
-        this.categoriesService.modifyCategory(id, categoryData)
+        return this.categoriesService.modifyCategory(id, categoryData)
     }
 
-    @Delete()
+    @Delete(':id')
     deleteCategory(@Param('id', ParseUUIDPipe) id: string) {
-        this.categoriesService.deleteCategory(id)
+        console.log(id, "Holaaaa estoy aquiiiiiiii")
+        return this.categoriesService.deleteCategory(id)
     }
 }

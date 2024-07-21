@@ -10,12 +10,13 @@ export class CategoriesService {
 
     async createNewCategory(categoryData: CategoryDto): Promise<Object> {
         const { name } = categoryData
+        
         try {
             const category = await this.categoryRepository.findOne({ where: { name } })
 
             if (category) throw new ConflictException(`This category ${name} already exist on the database`)
 
-            const newCategory = this.categoryRepository.create(categoryData)
+            const newCategory = this.categoryRepository.create({name})
             await this.categoryRepository.save(newCategory)
 
             return {

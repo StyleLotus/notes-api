@@ -10,9 +10,9 @@ const config = {
     port: process.env.DB_PORT as unknown as number,
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
-    dropschema: true,
+    // dropschema: true,
     logging: true, 
-    synchronize: false,
+    synchronize: true,
     entities: ['dist/**/*.entity{.ts,.js}'],
 }
 

@@ -17,16 +17,16 @@ export class NotesController{
     }
 
     @Post()
-    createNewNote(noteData: NoteDto){
+    createNewNote(@Body() noteData: NoteDto){
         return this.noteService.createNote(noteData)
     }
 
-    @Put()
+    @Put(':id')
     modifyNote(@Param('id', ParseUUIDPipe) id: string, @Body() newData: Partial<NoteDto>){
         return this.noteService.modifyNote(id, newData)
     }
 
-    @Delete()
+    @Delete(':id')
     deleteNote(@Param('id', ParseUUIDPipe) id: string){
         return this.noteService.deleteNote(id)
     }
